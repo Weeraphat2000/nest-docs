@@ -13,6 +13,7 @@ import {
   NotFoundException,
   ParseIntPipe,
   ParseUUIDPipe,
+  Query,
 } from '@nestjs/common';
 import { CrudService } from './crud.service';
 import { CreateCrudDto } from './dto/create-crud.dto';
@@ -113,7 +114,9 @@ export class CrudController {
   }
 
   @Get('/user1/user1')
-  getAllUser() {
+  getAllUser(@Query() role?: { user: string }, @Query('user') user?: string) {
+    console.log(role, '...Query');
+    console.log(user, '.....Query User');
     console.log('a');
     return this.prismaService.user.findMany();
   }

@@ -1,4 +1,4 @@
-import { IsNumber, IsPositive, IsString } from 'class-validator';
+import { IsEmail, IsNumber, IsPositive, IsString } from 'class-validator';
 export class CreateCrudDto {
   id: string;
 
@@ -10,3 +10,47 @@ export class CreateCrudDto {
   @IsString()
   address: string;
 }
+
+/*
+  @IsNotEmpty({message:''})
+
+  @Length(10, 20)
+  title: string;
+
+  @Contains('hello')
+  text: string;
+
+  @IsInt()
+  @Min(0)
+  @Max(10)
+  rating: number;
+
+  @IsEmail()
+  email: string;
+
+  @IsDate()
+  createDate: Date;
+
+  @IsPositive()
+
+  @Length(10, 20, { message: '10 - 20' })
+  @Matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, {
+    message:
+      'password minimum eight characters, at least one letter and one number',
+  })
+
+  @Matches('ADMIN')
+  @IsNotEmpty({ message: 'role is not empty' })
+  role: 'ADMIN';
+
+  @IsEnum(['user', 'admin'], {message:"errrorrrrrr"})
+  role: string;
+
+  @IsString()
+  @IsNotEmpty({ message: 'password is not empty' })
+  password: string;
+
+  @IsString()
+  @Equals('password', { message: 'password and confirm password not match' }) // password == confrimPassword ไหม
+  confirmPassword: string;
+*/
