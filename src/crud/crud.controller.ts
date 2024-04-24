@@ -21,13 +21,21 @@ import { UpdateCrudDto } from './dto/update-crud.dto';
 import { Request, Response } from 'express';
 import { CustomRequest } from 'src/services/authendication.service';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { TestService } from 'src/test/test.service';
 
 @Controller('crud')
 export class CrudController {
   constructor(
     private readonly crudService: CrudService,
     private readonly prismaService: PrismaService,
+    private testService: TestService,
   ) {}
+
+  @Get('/testService')
+  testservice() {
+    console.log('testservice');
+    return this.testService.test();
+  }
 
   @Post()
   create(@Body(ValidationPipe) createCrudDto: CreateCrudDto) {
