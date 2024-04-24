@@ -1,8 +1,16 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  //
+  //
+  app.useGlobalPipes(new ValidationPipe());
+  // app.useGlobalPipes(new ValidationPipe()) จะทำให้เราไม่ต้องระบุการ validate ข้อมูลในแต่ละ Controller หรือในแต่ละเส้นทางของการส่งข้อมูลเองแล้ว แต่จะทำการ validate ทุก DTO อัตโนมัติ
+  //
+  //
   //
   //
   // app.use(cors()); // ต้องใช้นี่ด้วย

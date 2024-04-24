@@ -1,4 +1,10 @@
-import { IsEmail, IsNumber, IsPositive, IsString } from 'class-validator';
+import {
+  IsEmail,
+  IsNumber,
+  IsOptional,
+  IsPositive,
+  IsString,
+} from 'class-validator';
 export class CreateCrudDto {
   id: string;
 
@@ -7,6 +13,8 @@ export class CreateCrudDto {
   @IsNumber()
   @IsPositive()
   age: number;
+
+  // @IsOptional() คือ ส่งเข้ามาก็ได้ไม่ส่งเข้ามาก็ได้
   @IsString()
   address: string;
 }
@@ -53,4 +61,8 @@ export class CreateCrudDto {
   @IsString()
   @Equals('password', { message: 'password and confirm password not match' }) // password == confrimPassword ไหม
   confirmPassword: string;
+
+  @IsNumberString() เป็น number ที่เป็น str ไหม
+
+  @IsOptional() คือ ส่งเข้ามาก็ได้ไม่ส่งเข้ามาก็ได้
 */

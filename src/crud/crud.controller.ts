@@ -22,6 +22,7 @@ import { Request, Response } from 'express';
 import { CustomRequest } from 'src/services/authendication.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { TestService } from 'src/test/test.service';
+import { ParamsDto } from './dto/params.dto';
 
 @Controller('crud')
 export class CrudController {
@@ -37,8 +38,16 @@ export class CrudController {
     return this.testService.test(123);
   }
 
-  @Post()
-  create(@Body(ValidationPipe) createCrudDto: CreateCrudDto) {
+  @Post('/:id')
+  // create(@Body(ValidationPipe) createCrudDto: CreateCrudDto) {
+  create(@Body() createCrudDto: CreateCrudDto, @Param() id: ParamsDto) {
+    // createCrudDto: CreateCrudDto) ถ้าทำ app.useGlobalPipes(new ValidationPipe()); ก็ไม่ต้องใส่ validationpipe ก็ได้ ทำแล้วอยู่ที่ main.ts
+    console.log('ValidationPipe');
+    //
+    //
+    console.log(id, 'paramDTO');
+    //
+    //
     return this.crudService.create(createCrudDto);
   }
 
