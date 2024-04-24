@@ -34,7 +34,7 @@ export class CrudController {
   @Get('/testService')
   testservice() {
     console.log('testservice');
-    return this.testService.test();
+    return this.testService.test(123);
   }
 
   @Post()
