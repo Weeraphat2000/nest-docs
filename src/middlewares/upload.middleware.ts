@@ -5,13 +5,21 @@ import * as multer from 'multer';
 @Injectable()
 export class MulterMiddleware implements NestMiddleware {
   private upload = multer({
-    dest: 'uploads/', // กำหนด directory ที่ต้องการบันทึกไฟล์
+    dest: './uploads', // กำหนด directory ที่ต้องการบันทึกไฟล์
     storage: multer.diskStorage({
       destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // กำหนด directory ที่ต้องการบันทึกไฟล์
+        cb(null, './uploads'); // กำหนด directory ที่ต้องการบันทึกไฟล์
       },
       filename: (req, file, cb) => {
-        cb(null, file.originalname); // กำหนดชื่อไฟล์ที่ต้องการ
+        cb(
+          null,
+          //file.originalname
+          new Date().getTime() +
+            '' +
+            Math.round(Math.random() * 1000000000) +
+            '.' +
+            file.mimetype.split('/')[1],
+        ); // กำหนดชื่อไฟล์ที่ต้องการ
       },
     }),
   });
@@ -19,7 +27,8 @@ export class MulterMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
     // ใช้ Multer middleware ในการจัดการอัปโหลดไฟล์
     // this.upload.single('file')(req, res, next);
-    this.upload.fields([{ name: 'file' }])(req, res, next);
+    // this.upload.single('img')(req, res, next);
+    this.upload.fields([{ name: 'img' }])(req, res, next);
   }
 }
 // const multer = require("multer")

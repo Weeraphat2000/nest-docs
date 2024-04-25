@@ -3,6 +3,7 @@ import {
   Post,
   Req,
   UploadedFile,
+  UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -40,6 +41,11 @@ export class UploadController {
   uploadFile2(@UploadedFile() file: any) {
     console.log(file);
     return { filename: file.filename };
+  }
+
+  @Post('/upload3')
+  uploadFile3(@UploadedFiles() file: any) {
+    console.log(file, 'upload3');
   }
 }
 

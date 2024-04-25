@@ -4,6 +4,7 @@ import { UploadService } from './upload.service';
 import { APP_FILTER } from '@nestjs/core';
 import { MulterModule } from '@nestjs/platform-express';
 import * as multer from 'multer';
+import { MulterMiddleware } from 'src/middlewares/upload.middleware';
 
 @Module({
   controllers: [UploadController],
@@ -23,9 +24,9 @@ import * as multer from 'multer';
   ],
 })
 export class UploadModule {
-  // configure(cunsumer: MiddlewareConsumer) {
-  //   cunsumer
-  //     .apply(MulterMiddleware)
-  //     .forRoutes({ path: '/upload/upload2', method: RequestMethod.POST });
-  // }
+  configure(cunsumer: MiddlewareConsumer) {
+    cunsumer
+      .apply(MulterMiddleware)
+      .forRoutes({ path: '/upload/upload3', method: RequestMethod.POST });
+  }
 }
