@@ -14,12 +14,15 @@ import { Request, Response } from 'express';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { Plus } from 'src/services/plus2.service';
 import { TestService } from './test.service';
+import * as bcrypt from 'bcrypt';
+import { BcryptService } from 'src/services/bcrypt.service';
 
 @Controller('test')
 export class TestController {
   constructor(
     private readonly plus: Plus,
     private readonly testService1: TestService,
+    private readonly bcryptService: BcryptService,
   ) {}
 
   @Get('')
@@ -51,5 +54,19 @@ export class TestController {
       uuid: this.plus.uuid(),
       test: this.testService1.test(id),
     };
+  }
+
+  @Get('bcrypt-hash')
+  async bcrypt() {
+    const password = 'password';
+    const hash = await this.bcryptService.hash(password);
+    console.log(hash, 'hash');
+    return { hash };
+  }
+  @Get('bcrypt-compare/:password')
+  async compare(@Param('password') password: string) {
+    const isMatch = await this.bcryptService.compare(password);
+    console.log(isMatch, 'isMatch');
+    return { isMatch };
   }
 }

@@ -6,9 +6,10 @@ import { PrismaService } from './prisma/prisma.service';
 import { TestModule } from './test/test.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { UploadModule } from './upload/upload.module';
+import { RoleModule } from './role/role.module';
 
 @Module({
-  imports: [CrudModule, TestModule, ScheduleModule.forRoot(), UploadModule],
+  imports: [CrudModule, TestModule, ScheduleModule.forRoot(), UploadModule, RoleModule],
   // ScheduleModule คือ  การตั้งเวลางาน เป็นกระบวนการในการกำหนดเวลาให้กับงานที่ต้องทำงานอัตโนมัติตามเวลาที่กำหนดไว้ ซึ่งมีวัตถุประสงค์หลักคือให้สามารถทำงานเองโดยอัตโนมัติตามเวลาที่กำหนด โดยไม่ต้องมีการเรียกใช้งานจากผู้ใช้ในแต่ละครั้ง
   controllers: [AppController],
   providers: [AppService, PrismaService],
