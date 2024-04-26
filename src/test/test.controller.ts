@@ -16,6 +16,7 @@ import { Plus } from 'src/services/plus2.service';
 import { TestService } from './test.service';
 import * as bcrypt from 'bcrypt';
 import { BcryptService } from 'src/services/bcrypt.service';
+import { Throttle } from '@nestjs/throttler';
 
 @Controller('test')
 export class TestController {
@@ -56,6 +57,7 @@ export class TestController {
     };
   }
 
+  // @Throttle({ default: { limit: 3, ttl: 60000 } }) // late limit
   @Get('bcrypt-hash')
   async bcrypt() {
     const password = 'password';

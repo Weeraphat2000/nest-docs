@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
 
   //
   //
@@ -13,6 +13,7 @@ async function bootstrap() {
   //
   //
   //
+  // const app = await NestFactory.create(AppModule, { cors: true }); cors:true ก็ได้เหมือนกัน
   // app.use(cors()); // ต้องใช้นี่ด้วย
   // app.enableCors(); // เหมือนใช้ cors ของ express
   // ใน Nest.js, app.enableCors() และ app.use(cors()) มีหน้าที่เหมือนกัน คือการเปิดใช้งาน CORS (Cross-Origin Resource Sharing) เพื่ออนุญาตให้แอปพลิเคชันของคุณรับคำขอจากโดเมนอื่น ๆ โดยที่มีโดเมนต่างกัน
