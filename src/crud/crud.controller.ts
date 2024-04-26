@@ -23,6 +23,7 @@ import { CustomRequest } from 'src/services/authendication.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { TestService } from 'src/test/test.service';
 import { ParamsDto } from './dto/params.dto';
+import { Prisma } from '@prisma/client';
 
 @Controller('crud')
 export class CrudController {
@@ -34,6 +35,11 @@ export class CrudController {
 
   @Get('/testService')
   testservice() {
+    // Prisma:Prisma.UserUpdateInput
+    // data:Prisma.UserCreateInput ได้เหมือนกันตรง decorator
+
+    // console.log(Prisma.UserScalarFieldEnum); // ใช้งาน prisma client โดยตรงเลย
+
     console.log('testservice');
     return this.testService.test(123);
   }

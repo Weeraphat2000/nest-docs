@@ -1,13 +1,15 @@
 import {
   Controller,
+  HttpStatus,
   Post,
   Req,
+  Res,
   UploadedFile,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 
@@ -44,8 +46,28 @@ export class UploadController {
   }
 
   @Post('/upload3')
-  uploadFile3(@UploadedFiles() file: any) {
+  uploadFile3(
+    @UploadedFiles() file: any,
+    @Res() res: Response,
+    @UploadedFiles() file2: { img2: Express.Multer.File[] },
+  ) {
+    console.log(file);
+
+    // img2 คือ fields name ตอนรับเข้ามาหรือตอนส่ง key img2 เข้ามา
+    const result = file.img2.map((item) => ({
+      originalname: item.originalname,
+      filename: item.filename,
+    }));
+    console.log(result, 'result');
+
+    const result2 = file2.img2.map((item) => ({
+      originalname: item.originalname,
+      filename: item.filename,
+    }));
+    console.log(result2, 'result2');
+
     console.log(file, 'upload3');
+    return res.status(HttpStatus.OK).json({ result1: result, result2 });
   }
 }
 

@@ -28,7 +28,8 @@ export class MulterMiddleware implements NestMiddleware {
     // ใช้ Multer middleware ในการจัดการอัปโหลดไฟล์
     // this.upload.single('file')(req, res, next);
     // this.upload.single('img')(req, res, next);
-    this.upload.fields([{ name: 'img' }])(req, res, next);
+    this.upload.fields([{ name: 'img2' }])(req, res, next);
+    // img2 คือ fields name ตอนรับเข้ามาหรือตอนส่ง key img2 เข้ามา
   }
 }
 // const multer = require("multer")
