@@ -35,6 +35,8 @@ export class TestController {
     res.status(HttpStatus.OK).json({ message: 'OK' });
   }
 
+  // @UseGuards(AuthGuard) แค่นี้ก็ใช้งานได้เลย แล้วก็ต้องทำตามที่มันทให้ทำด้วย(ใน AuthGuard)
+  // Guard เอาไว้ทำเฉพาะ authendicate
   @UseGuards(AuthGuard)
   @Get('guard')
   testGurad(@Req() req: Request) {

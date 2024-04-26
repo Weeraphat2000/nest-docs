@@ -12,9 +12,11 @@ import { Request } from 'express';
 export class AuthGuard implements CanActivate {
   constructor(private jwtService: JwtService) {}
 
+  // ต้องใช้ชื่อ canActivate นี้ด้วย
+  // context: ExecutionContext ต้องทำนี่ด้วย เพราะว่ารับ request ไม่ได้
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const token = this.extractTokenFromHeader(request);
+    const token = this.extractTokenFromHeader12(request);
     if (!token) {
       throw new UnauthorizedException();
     }
@@ -26,13 +28,14 @@ export class AuthGuard implements CanActivate {
       // so that we can access it in our route handlers
       request['user'] = payload;
       request['token'] = token;
+      console.log(token, '___token from guard___');
     } catch {
       throw new UnauthorizedException();
     }
     return true;
   }
 
-  private extractTokenFromHeader(request: Request): string | undefined {
+  private extractTokenFromHeader12(request: Request): string | undefined {
     const [type, token] = request.headers.authorization?.split(' ') ?? [];
     return type === 'Bearer' ? token : undefined;
   }
