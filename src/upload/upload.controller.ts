@@ -40,11 +40,12 @@ export class UploadController {
   @Post('upload2')
   // key = img
   @UseInterceptors(FileInterceptor('img'))
-  uploadFile2(@UploadedFile() file: any) {
+  uploadFile2(@UploadedFile() file: Express.Multer.File) {
     console.log(file);
     return { filename: file.filename };
   }
 
+  // ถ้าจะทำ upload หลายไฟล์ก็ต้องทำแบบนี้แหละมั้ง เพราะสามารถเลือกเป็น single, fields ได้
   @Post('/upload3')
   uploadFile3(
     @UploadedFiles() file: any,
