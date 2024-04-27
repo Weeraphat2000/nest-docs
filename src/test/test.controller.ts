@@ -49,6 +49,12 @@ export class TestController {
     return { user: req['user'], token: req['token'] };
   }
 
+  @Get('/middleware')
+  middleware(@Req() req: Request, @Res() res: Response) {
+    console.log('test middleware');
+    return res.status(HttpStatus.OK).json({ data: req.body });
+  }
+
   @Get('/plus/:id')
   testService(@Param('id', ParseIntPipe) id: number) {
     return {

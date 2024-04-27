@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { CrudService } from './crud.service';
 import { CrudController } from './crud.controller';
 import { TestMiddleware } from 'src/middlewares/test.middleware';
@@ -18,7 +23,7 @@ import { PrismaModule } from 'src/prisma/prisma.module';
     PrismaModule,
   ],
 })
-export class CrudModule {
+export class CrudModule implements NestModule {
   configure(cunsumer: MiddlewareConsumer) {
     cunsumer
       .apply(TestMiddleware, logger)

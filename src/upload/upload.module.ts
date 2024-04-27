@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { UploadController } from './upload.controller';
 import { UploadService } from './upload.service';
 import { APP_FILTER } from '@nestjs/core';
@@ -23,7 +28,7 @@ import { MulterMiddleware } from 'src/middlewares/upload.middleware';
     }),
   ],
 })
-export class UploadModule {
+export class UploadModule implements NestModule {
   configure(cunsumer: MiddlewareConsumer) {
     cunsumer
       .apply(MulterMiddleware)
