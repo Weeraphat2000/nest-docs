@@ -10,7 +10,9 @@ export class ConstructorsService2 extends ConstructorsService {
     super(prismaService);
   }
 
-  all() {
-    return this.prismaService.user.findMany();
+  async all() {
+    const many = await this.prismaService.user.findMany();
+    const user = this.user;
+    return { many, user };
   }
 }
