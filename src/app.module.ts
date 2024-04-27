@@ -8,14 +8,16 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { UploadModule } from './upload/upload.module';
 import { RoleModule } from './role/role.module';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { ConstructorsModule } from './constructors/constructors.module';
 
 @Module({
   imports: [
     CrudModule,
     TestModule,
-    ScheduleModule.forRoot(),
+    ScheduleModule.forRoot(), // เพื่อให้ Cron ทำงาน
     UploadModule,
     RoleModule,
+    ConstructorsModule,
 
     // late limit
     // ThrottlerModule.forRoot([

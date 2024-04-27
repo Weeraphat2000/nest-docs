@@ -32,6 +32,7 @@ export class AuthGuard implements CanActivate {
       // so that we can access it in our route handlers
       request['user'] = payload;
       request['token'] = token;
+      request['hun'] = 'hun';
       console.log(token, '___token from guard___');
     } catch {
       throw new UnauthorizedException();

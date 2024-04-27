@@ -14,6 +14,7 @@ import {
   ParseIntPipe,
   ParseUUIDPipe,
   Query,
+  UsePipes,
 } from '@nestjs/common';
 import { CrudService } from './crud.service';
 import { CreateCrudDto } from './dto/create-crud.dto';
@@ -45,6 +46,11 @@ export class CrudController {
   }
 
   @Post('/:id')
+  //
+  //
+  // @UsePipes(new ValidationPipe()) // class validation แบบนี้ก็ได้
+  //
+  //
   // create(@Body(ValidationPipe) createCrudDto: CreateCrudDto) {
   create(@Body() createCrudDto: CreateCrudDto, @Param() id: ParamsDto) {
     // createCrudDto: CreateCrudDto) ถ้าทำ app.useGlobalPipes(new ValidationPipe()); ก็ไม่ต้องใส่ validationpipe ก็ได้ ทำแล้วอยู่ที่ main.ts

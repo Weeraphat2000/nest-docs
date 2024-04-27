@@ -44,7 +44,8 @@ export class TestController {
   @UseGuards(AuthGuard)
   @Get('guard')
   testGurad(@Req() req: Request) {
-    console.log(req['user']);
+    console.log(req['user'], 'user controller');
+    console.log(req['hun'], 'hun controller');
     return { user: req['user'], token: req['token'] };
   }
 
