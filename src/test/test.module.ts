@@ -35,7 +35,10 @@ import { TestMiddleware } from './test.middleware';
 export class TestModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(TestMiddleware)
-      .forRoutes({ path: 'test/middleware', method: RequestMethod.GET });
+      .apply(TestMiddleware) // เข้า middleware ก่อนแล้วค่อยเข้ามาที่ guard
+      .forRoutes(
+        { path: 'test/middleware', method: RequestMethod.GET },
+        { path: 'test/plus/:id', method: RequestMethod.GET },
+      );
   }
 }

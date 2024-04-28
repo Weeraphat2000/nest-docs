@@ -17,8 +17,10 @@ import { TestService } from './test.service';
 import * as bcrypt from 'bcrypt';
 import { BcryptService } from 'src/services/bcrypt.service';
 import { Throttle } from '@nestjs/throttler';
+import { TestGuard } from './test.guard';
 
 @Controller('test')
+@UseGuards(TestGuard) // ถ้าใส่ตรงนี้ก็ use guard ที่ part ทุก method ในนี้เลย ******************
 export class TestController {
   constructor(
     private readonly plus: Plus,
@@ -49,6 +51,8 @@ export class TestController {
     return { user: req['user'], token: req['token'] };
   }
 
+  // เข้า middleware ก่อนแล้วค่อยเข้ามาที่ guard
+  // @UseGuards(TestGuard)
   @Get('/middleware')
   middleware(@Req() req: Request, @Res() res: Response) {
     console.log('test middleware');
