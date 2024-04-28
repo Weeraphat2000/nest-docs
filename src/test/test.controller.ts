@@ -9,6 +9,7 @@ import {
   Req,
   Res,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AuthGuard } from 'src/guards/auth.guard';
@@ -18,9 +19,10 @@ import * as bcrypt from 'bcrypt';
 import { BcryptService } from 'src/services/bcrypt.service';
 import { Throttle } from '@nestjs/throttler';
 import { TestGuard } from './test.guard';
+import { TestInterceptor } from './test.interceptor';
 
 @Controller('test')
-@UseGuards(TestGuard) // ถ้าใส่ตรงนี้ก็ use guard ที่ part ทุก method ในนี้เลย ******************
+// @UseGuards(TestGuard) // ถ้าใส่ตรงนี้ก็ use guard ที่ part ทุก method ในนี้เลย ******************
 export class TestController {
   constructor(
     private readonly plus: Plus,
@@ -29,16 +31,18 @@ export class TestController {
   ) {}
 
   @Get('')
+  @UseInterceptors(TestInterceptor)
   get(
     @Req() req: Request,
-    @Res() res: Response,
+    @Res() res: Response, // ถ้าใช้ @Res() res: Response แล้วก็ต้องใช้ response ในการส่งข้อมูลกลับ จะใช้ return ไม่ได้
     @Body() body: {},
     @Query('id') query: string,
   ) {
     console.log(req.body, 'body request');
     console.log(body, 'body');
     console.log(query, 'Query');
-    res.status(HttpStatus.OK).json({ message: 'OK' });
+    res.status(HttpStatus.OK).json({ message: 'OK' }); // ถ้าใช้ response ก็ต้องใช้ response จะใช้ return ไม่ได้เพราะว่ามันจะไม่ response
+    return { message: 'OK', a: 'A' }; // return จะส่งค่าที่อยู่ใน return กลับไปที่ interceptor
   }
 
   // @UseGuards(AuthGuard) แค่นี้ก็ใช้งานได้เลย แล้วก็ต้องทำตามที่มันทให้ทำด้วย(ใน AuthGuard)
