@@ -25,6 +25,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { TestService } from 'src/test/test.service';
 import { ParamsDto } from './dto/params.dto';
 import { Prisma } from '@prisma/client';
+import { TestNestDTO } from './dto/nest.dto';
 
 @Controller('crud')
 export class CrudController {
@@ -33,6 +34,13 @@ export class CrudController {
     private readonly prismaService: PrismaService,
     private testService: TestService,
   ) {}
+
+  @Post('/test-nest-dto')
+  @UsePipes(ValidationPipe)
+  testNestDTO(@Body() body: TestNestDTO, @Req() req: Request) {
+    console.log(body, 'body');
+    return 'pass';
+  }
 
   @Get('/testService')
   testservice() {
