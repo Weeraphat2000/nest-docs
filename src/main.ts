@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { AuthGuard } from './guards/auth.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
@@ -22,6 +23,14 @@ async function bootstrap() {
   // app.setGlobalPrefix('api') // คือ ทุก parth ต้องมี api
   //
   //
+  const authGuard = app.get(AuthGuard);
+  app.useGlobalGuards(authGuard); // ทำให้ทุก controller ต้องผ่าน guard ก่อนเข้า controller
+  // การใช้งาน guard แบบ global จะทำให้ทุก controller ต้องผ่าน guard ก่อนเข้า controller ทุกครั้ง
+  // app.useGlobalGuards(new AuthGuard()); // ทำให้ทุก controller ต้องผ่าน guard ก่อนเข้า controller
+  //
+  //
+  //
+
   await app.listen(3000);
 }
 bootstrap();

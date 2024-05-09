@@ -40,5 +40,10 @@ export class TestModule implements NestModule {
         { path: 'test/middleware', method: RequestMethod.GET },
         { path: 'test/plus/:id', method: RequestMethod.GET },
       );
+
+    consumer
+      .apply(TestMiddleware) // เข้า middleware ก่อนแล้วค่อยเข้ามาที่ guard
+      .exclude({ path: 'test/middleware', method: RequestMethod.GET }) // ไม่ให้ middleware ทำงานใน path นี้
+      .forRoutes(TestController); // แบบนี้จะได้ทุก method ใน controller นี้เลย
   }
 }

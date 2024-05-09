@@ -35,7 +35,7 @@ export class TestController {
   get(
     @Req() req: Request,
     @Res() res: Response, // ถ้าใช้ @Res() res: Response แล้วก็ต้องใช้ response ในการส่งข้อมูลกลับ จะใช้ return ไม่ได้
-    @Body() body: {},
+    @Body() body: { name: string; age: number },
     @Query('id') query: string,
   ) {
     console.log(req.body, 'body request');
