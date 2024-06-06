@@ -39,3 +39,16 @@ export class CrudService {
     return this.user;
   }
 }
+/*
+ this.prismaService.user.findMany({
+  include: { Order: { where: { amount } } },
+      // amount คือ ค่าที่ต้องการเปรียบเทียบ และเป็นตัวเลขที่ต้องการเปรียบเทียบ
+      // include: { Order: { where: { amount: { lte: amount } } } },
+      // lte คือ less than or equal
+      // lt คือ less than
+      // gte คือ greater than or equal
+      // gt คือ greater than
+      // include: { Order: { where: { amount: { lt: amount } } } },
+      take: 5,
+    });
+*/

@@ -20,6 +20,7 @@ import { BcryptService } from 'src/services/bcrypt.service';
 import { Throttle } from '@nestjs/throttler';
 import { TestGuard } from './test.guard';
 import { TestInterceptor } from './test.interceptor';
+import { testQuery } from './test-query';
 
 @Controller('test')
 // @UseGuards(TestGuard) // ถ้าใส่ตรงนี้ก็ use guard ที่ part ทุก method ในนี้เลย ******************
@@ -85,5 +86,15 @@ export class TestController {
     const isMatch = await this.bcryptService.compare(password);
     console.log(isMatch, 'isMatch');
     return { isMatch };
+  }
+
+  @Get('/test-query')
+  testQuery(@Query() query1: testQuery) {
+    // /test/test-query?A=aassa&B=b&C=12 => { A: 'aassa', B: 'b', C: '12' } ถ้าไม่ใช้ class-validator  value มันจะเป็น string ทั้งหมด
+
+    console.log(query1, 'query');
+    console.log(query1.A, '<= query A');
+
+    return 'pass';
   }
 }

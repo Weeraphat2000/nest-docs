@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsNumber, Max } from 'class-validator';
 
 export class CreateAddressDTO {
   @IsNotEmpty()
@@ -8,5 +8,7 @@ export class CreateAddressDTO {
   B: string;
 
   @IsNotEmpty()
+  @IsNumber()
+  @Max(50, { message: 'C must be less than or equal to 50' })
   C: number;
 }
