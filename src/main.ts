@@ -8,7 +8,14 @@ async function bootstrap() {
 
   //
   //
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true, // กรองเฉพาะฟิลด์ที่มีตัวตรวจสอบ (Decorator) เท่านั้น
+      forbidNonWhitelisted: true, // ถ้ามีฟิลด์ที่ไม่ได้ระบุใน DTO จะให้แสดงข้อผิดพลาด
+      forbidUnknownValues: true, // ป้องกันไม่ให้รับข้อมูลที่ไม่รู้จัก (เช่น object เปล่า ๆ)
+      transform: true, // แปลงข้อมูลที่รับเข้ามาให้ตรงกับประเภทของ DTO โดยอัตโนมัติ
+    }),
+  );
   // app.useGlobalPipes(new ValidationPipe()) จะทำให้เราไม่ต้องระบุการ validate ข้อมูลในแต่ละ Controller หรือในแต่ละเส้นทางของการส่งข้อมูลเองแล้ว แต่จะทำการ validate ทุก DTO อัตโนมัติ
   //
   //
@@ -23,8 +30,8 @@ async function bootstrap() {
   // app.setGlobalPrefix('api') // คือ ทุก parth ต้องมี api
   //
   //
-  const authGuard = app.get(AuthGuard);
-  app.useGlobalGuards(authGuard); // ทำให้ทุก controller ต้องผ่าน guard ก่อนเข้า controller
+  // const authGuard = app.get(AuthGuard);
+  // app.useGlobalGuards(authGuard); // ทำให้ทุก controller ต้องผ่าน guard ก่อนเข้า controller
   // การใช้งาน guard แบบ global จะทำให้ทุก controller ต้องผ่าน guard ก่อนเข้า controller ทุกครั้ง
   // app.useGlobalGuards(new AuthGuard()); // ทำให้ทุก controller ต้องผ่าน guard ก่อนเข้า controller
   //

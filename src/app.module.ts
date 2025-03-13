@@ -7,7 +7,7 @@ import { TestModule } from './test/test.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { UploadModule } from './upload/upload.module';
 import { RoleModule } from './role/role.module';
-import { ThrottlerModule } from '@nestjs/throttler';
+// import { ThrottlerModule } from '@nestjs/throttler';
 import { ConstructorsModule } from './constructors/constructors.module';
 
 @Module({
