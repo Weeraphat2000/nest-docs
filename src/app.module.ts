@@ -9,6 +9,7 @@ import { UploadModule } from './upload/upload.module';
 import { RoleModule } from './role/role.module';
 // import { ThrottlerModule } from '@nestjs/throttler';
 import { ConstructorsModule } from './constructors/constructors.module';
+import { PrometheusModule } from './prometheus/prometheus.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ConstructorsModule } from './constructors/constructors.module';
     UploadModule,
     RoleModule,
     ConstructorsModule,
+    PrometheusModule,
 
     // late limit
     // ThrottlerModule.forRoot([
