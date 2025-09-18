@@ -17,7 +17,7 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { CrudService } from './crud.service';
-import { CreateCrudDto } from './dto/create-crud.dto';
+import { CreateCrudDto, TestPlainToInstanceDTO } from './dto/create-crud.dto';
 import { UpdateCrudDto } from './dto/update-crud.dto';
 import { Request, Response } from 'express';
 import { CustomRequest } from 'src/services/authendication.service';
@@ -26,6 +26,8 @@ import { TestService } from 'src/test/test.service';
 import { ParamsDto } from './dto/params.dto';
 import { Prisma } from '@prisma/client';
 import { TestNestDTO } from './dto/nest.dto';
+import { plainToInstance } from 'class-transformer';
+import { validate } from 'class-validator';
 
 @Controller('crud')
 export class CrudController {
@@ -62,7 +64,7 @@ export class CrudController {
   // @Body(ValidationPipe) createCrudDto: CreateCrudDto) // แบบนี้ก็ได้
   //
   // @Body(new ValidationPipe()) createCrudDto: CreateCrudDto) // แบบนี้ก็ได้
-  create(@Body() createCrudDto: CreateCrudDto, @Param() id: ParamsDto) {
+  async create(@Body() createCrudDto: CreateCrudDto, @Param() id: ParamsDto) {
     // ถ้าทำ app.useGlobalPipes(new ValidationPipe()); ก็ไม่ต้องใส่ validationpipe ก็ได้ ทำแล้วอยู่ที่ main.ts
     console.log('ValidationPipe');
     //
@@ -70,6 +72,26 @@ export class CrudController {
     console.log(id, 'paramDTO');
     //
     //
+    //
+    const mockData = {
+      username: 'john',
+      age: 20,
+      old: 123,
+    }; // ข้อมูลที่ได้มาจากภายนอก เช่น จาก body, param, query
+    // แปลงข้อมูลจาก object ธรรมดา เป็น class แล้วเอาไป validate
+    const user = plainToInstance(TestPlainToInstanceDTO, mockData);
+    // ตรวจสอบ mock data
+    const errors = await validate(user, {
+      // whitelist: true, // ถ้าไม่ใช่ property ที่อยู่ใน dto จะตัดออก
+      // forbidNonWhitelisted: true, // ถ้าไม่ใช่ property ที่อยู่ใน dto จะ error
+      // skipMissingProperties: false, // ถ้าไม่มี property ที่อยู่ใน dto จะไม่ error
+    }); // ถ้าติด validate จะมี error ออกมา ถ้าไม่ติดก็จะได้เป็นข้อมูลออกมาปกติ
+    if (errors.length > 0) {
+      console.log('Validation failed. errors: ', errors);
+    } else {
+      console.log('Validation succeed', user);
+    }
+
     return this.crudService.create(createCrudDto);
   }
 

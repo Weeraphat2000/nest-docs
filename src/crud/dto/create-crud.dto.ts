@@ -23,6 +23,15 @@ export class CreateCrudDto {
   address: string;
 }
 
+export class TestPlainToInstanceDTO {
+  @IsString()
+  username: string;
+
+  @IsNumber()
+  @IsPositive()
+  age: number;
+}
+
 /*
   @IsNotEmpty({message:''})
 
