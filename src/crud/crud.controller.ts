@@ -59,9 +59,11 @@ export class CrudController {
   // @UsePipes(new ValidationPipe()) // class validation แบบนี้ก็ได้
   //
   //
-  // create(@Body(ValidationPipe) createCrudDto: CreateCrudDto) {
+  // @Body(ValidationPipe) createCrudDto: CreateCrudDto) // แบบนี้ก็ได้
+  //
+  // @Body(new ValidationPipe()) createCrudDto: CreateCrudDto) // แบบนี้ก็ได้
   create(@Body() createCrudDto: CreateCrudDto, @Param() id: ParamsDto) {
-    // createCrudDto: CreateCrudDto) ถ้าทำ app.useGlobalPipes(new ValidationPipe()); ก็ไม่ต้องใส่ validationpipe ก็ได้ ทำแล้วอยู่ที่ main.ts
+    // ถ้าทำ app.useGlobalPipes(new ValidationPipe()); ก็ไม่ต้องใส่ validationpipe ก็ได้ ทำแล้วอยู่ที่ main.ts
     console.log('ValidationPipe');
     //
     //
